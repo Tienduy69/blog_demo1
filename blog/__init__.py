@@ -16,6 +16,8 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:261297@localhost/bai1"
     #app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
+    from .models import User, Note
+    create_database(app)
 
     from .views import views
     from .user import user
@@ -23,9 +25,9 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(user, url_prefix='/')
 
-    from .models import User, Note
 
-    create_database(app)
+
+
 
     login_manager = LoginManager()
     login_manager.login_view = 'user.login'
